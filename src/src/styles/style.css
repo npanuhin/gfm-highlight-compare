@@ -161,6 +161,7 @@ body {
 .token-toggle-text {
     flex-grow: 1;
     text-align: center;
+    margin-right: 18px; /* Offset to center text by compensating for the arrow (10px font + 8px margin) */
 }
 
 .token-input-container {
