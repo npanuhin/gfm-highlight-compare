@@ -1,0 +1,37 @@
+{
+	"name": "gfm-highlight-compare",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build:vite": "vite build",
+		"build": "npm run build:vite -- --emptyOutDir",
+		"deploy": "npm run build && wrangler deploy",
+		"dev": "npm run build",
+		"test": "vitest run"
+	},
+	"dependencies": {
+		"@octokit/core": "^6.1.4",
+		"js-yaml": "^4.1.0"
+	},
+	"devDependencies": {
+		"@testing-library/dom": "^10.4.1",
+		"@testing-library/jest-dom": "^6.9.1",
+		"@types/js-yaml": "^4.0.9",
+		"@vitejs/plugin-legacy": "^7.2.1",
+		"@vitest/browser": "^4.0.18",
+		"autoprefixer": "^10.4.23",
+		"jsdom": "^28.1.0",
+		"postcss": "^8.5.6",
+		"typescript": "^5.7.3",
+		"vite": "^7.3.1",
+		"vite-plugin-html-minifier": "^1.0.5",
+		"vitest": "^4.0.18"
+	},
+	"browserslist": [
+		"> 0.01%",
+		"last 2 versions",
+		"Firefox ESR",
+		"not dead"
+	]
+}

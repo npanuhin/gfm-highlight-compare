@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" data-color-mode="dark" data-dark-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GFM Syntax Highlight Compare - Compare how different languages are highlighted in GitHub Flavoured Markdown">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+
+    <title>GFM Syntax Highlight Compare</title>
+</head>
+
+<body>
+
+<div id="content">
+    <div id="header">
+        <h1>GFM Syntax Highlight Compare</h1>
+        <p>Type some text below to see how GitHub highlights it in different languages</p>
+    </div>
+
+    <div id="content_inner">
+        <div class="input-section">
+            <textarea id="codeInput" placeholder="Enter your code here..."></textarea>
+            <div id="tokenSection" class="token-section">
+                <div id="tokenToggle" class="token-toggle">
+                    <span id="tokenArrow" class="token-arrow">▶</span>
+                    <span class="token-toggle-text">Click here to add GitHub API token (optional)</span>
+                </div>
+                <div id="tokenInputContainer" class="token-input-container">
+                    <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxx">
+                </div>
+            </div>
+        </div>
+
+        <div id="results_status">
+            <p id="status">Loading languages...</p>
+        </div>
+
+        <div id="results" class="results-section">
+        </div>
+    </div>
+</div>
+
+<script type="module" src="/scripts/main.ts"></script>
+
+</body>
+
+</html>
