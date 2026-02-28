@@ -14,7 +14,7 @@
     "outDir": "_website"
   },
   "include": [
-    "src/**/*.ts"
+    "website/**/*.ts"
   ],
   "exclude": [
     "node_modules"

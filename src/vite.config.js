@@ -4,7 +4,7 @@ import htmlMinifier from 'vite-plugin-html-minifier';
 
 export default defineConfig({
 	base: './',
-	root: 'src',
+	root: 'website',
 
 	plugins: [
 		htmlMinifier({
