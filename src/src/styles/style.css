@@ -141,6 +141,7 @@ body {
     user-select: none;
     font-size: 13px;
     color: var(--muted-color);
+    transition: color 0.1s ease-out;
 }
 
 .token-toggle:hover {
@@ -150,7 +151,7 @@ body {
 .token-arrow {
     margin-right: 8px;
     font-size: 10px;
-    transition: transform 0.2s;
+    transition: transform 0.2s ease-out;
     display: inline-block;
 }
 
@@ -165,13 +166,23 @@ body {
 }
 
 .token-input-container {
-    display: none;
-    padding: 10px 12px 12px;
-    border-top: 1px solid var(--border-color);
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0 12px;
+    border-top: 1px solid transparent;
+    transition:
+		max-height 0.3s ease-in-out,
+		opacity 0.3s ease-in-out,
+		padding 0.3s ease-in-out,
+		border-top-color 0.3s ease-in-out;
 }
 
 .token-section.open .token-input-container {
-    display: block;
+    max-height: 100px;
+    opacity: 1;
+    padding: 10px 12px 12px;
+    border-top-color: var(--border-color);
 }
 
 #tokenInput {

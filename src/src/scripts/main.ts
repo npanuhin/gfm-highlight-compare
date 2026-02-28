@@ -8,6 +8,9 @@ const tokenSection = document.getElementById('tokenSection') as HTMLDivElement;
 const tokenToggle = document.getElementById('tokenToggle') as HTMLDivElement;
 const tokenInput = document.getElementById('tokenInput') as HTMLInputElement;
 
+const TOKEN_URL = 'https://github.com/settings/personal-access-tokens/new?name=gfm-highlight-compare&expires_in=none';
+const LINGUIST_URL = 'https://raw.githubusercontent.com/github-linguist/linguist/refs/heads/main/lib/linguist/languages.yml';
+
 let currentToken = '';
 try {
 	currentToken = typeof localStorage !== 'undefined' ? localStorage.getItem('gh_token') || '' : '';
@@ -52,7 +55,7 @@ function autoResize() {
 // Initializing
 if (statusText && codeInput) {
 	statusText.textContent = "Fetching languages from Linguist...";
-	fetch('https://raw.githubusercontent.com/github-linguist/linguist/refs/heads/main/lib/linguist/languages.yml')
+	fetch(LINGUIST_URL)
 		.then(response => {
 			if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 			return response.text();
@@ -246,12 +249,16 @@ async function updateHighlighting(aliasMap: Map<string, string>) {
 		});
 
 		// Success!
-		if (currentToken) {
-			try {
-				if (typeof localStorage !== 'undefined') localStorage.setItem('gh_token', currentToken);
-			} catch (e) {}
-			if (tokenSection) tokenSection.classList.remove('open');
-		}
+		try {
+			if (typeof localStorage !== 'undefined') {
+				if (currentToken) {
+					localStorage.setItem('gh_token', currentToken);
+				} else {
+					localStorage.removeItem('gh_token');
+				}
+			}
+		} catch (e) {}
+		if (tokenSection) tokenSection.classList.remove('open');
 
 		const highlightedResults = parseGitHubResponse(res.data);
 		const grouped = groupResults(highlightedResults);
@@ -297,12 +304,11 @@ async function updateHighlighting(aliasMap: Map<string, string>) {
 
 	} catch (error: any) {
 		console.error('Render error:', error);
-		const tokenUrl = 'https://github.com/settings/personal-access-tokens/new?name=gfm-highlight-compare&expires_in=none';
 		if (error.status === 403 && error.headers && error.headers['x-ratelimit-remaining'] === '0') {
 			if (tokenSection) tokenSection.classList.add('open');
-			statusText.innerHTML = `API Rate limit exceeded. Please <a href="${tokenUrl}" target="_blank">generate a personal access token</a> and paste it below to continue.`;
+			statusText.innerHTML = `API Rate limit exceeded. Please <a href="${TOKEN_URL}" target="_blank">generate a personal access token</a> and paste it below to continue.`;
 		} else if (error.status === 401) {
-			statusText.innerHTML = `Invalid token. Please check your GitHub API key or <a href="${tokenUrl}" target="_blank">generate a new one</a>.`;
+			statusText.innerHTML = `Invalid token. Please check your GitHub API key or <a href="${TOKEN_URL}" target="_blank">generate a new one</a>.`;
 			if (tokenSection) tokenSection.classList.add('open');
 		} else {
 			statusText.textContent = "Error rendering. You might have hit the GitHub API rate limit.";
